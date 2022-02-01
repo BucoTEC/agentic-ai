@@ -12,19 +12,22 @@ const app = express();
 //config
 app.use(express.json());
 
-//routes
+//landing
 app.get("/", (req, res) => {
-  res.status(200).json("Evrirtihing is working ok");
+  res.status(200).json("Wellcome to the bookign API");
 });
 
+//routes
 app.use("/auth", auth);
 app.use("/users", users);
 app.use("/bookings", bookings);
 
+// route catcher
 app.all("*", (req, res, next) => {
   next(new Error("Route not found"));
 });
 
+//error handling
 app.use(errorHandler);
 
 // startup
