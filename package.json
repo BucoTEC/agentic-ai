@@ -1,0 +1,16 @@
+{
+  "name": "rikiapi",
+  "version": "1.0.0",
+  "description": "api for making bookings",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Adnan Bucalovic",
+  "license": "ISC",
+  "dependencies": {
+    "dotenv": "^15.0.0",
+    "express": "^4.17.2",
+    "mongoose": "^6.1.10"
+  }
+}
