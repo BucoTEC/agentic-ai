@@ -4,6 +4,7 @@ import dotenv from "dotenv";
 import auth from "./routes/auth.js";
 import users from "./routes/users.js";
 import bookings from "./routes/bookings.js";
+import errorHandler from "./middlwear/error-handler.js";
 
 dotenv.config();
 const app = express();
@@ -19,6 +20,12 @@ app.get("/", (req, res) => {
 app.use("/auth", auth);
 app.use("/users", users);
 app.use("/bookings", bookings);
+
+app.all("*", (req, res, next) => {
+  next(new Error("Route not found"));
+});
+
+app.use(errorHandler);
 
 // startup
 const port = process.env.PORT || 5500;
