@@ -31,7 +31,14 @@ app.all("*", (req, res, next) => {
 app.use(errorHandler);
 
 // startup
-const port = process.env.PORT || 5500;
+const port = process.env.PORT || 5000;
+const db = process.env.MONGO_URL || "mongodb://localhost:27017/bookingAPI";
+mongoose
+  .connect(db)
+  .then(console.log("Conection to database is open"))
+  .catch((err) => {
+    console.log(`Ups there was an error: ${err}`);
+  });
 app.listen(port, () => {
   console.log(`Server is operational on port: ${port}`);
 });
