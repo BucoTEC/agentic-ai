@@ -15,3 +15,5 @@ export const creatUser = async (req, res) => {
 
   res.json(newUser);
 };
+
+//TODO need to add bycrip for passeord encription and JWT for auth

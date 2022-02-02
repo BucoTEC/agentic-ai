@@ -5,12 +5,14 @@ import auth from "./routes/auth.js";
 import users from "./routes/users.js";
 import bookings from "./routes/bookings.js";
 import errorHandler from "./middlwear/error-handler.js";
+import cors from "cors";
 
 dotenv.config();
 const app = express();
 
 //config
 app.use(express.json());
+app.use(cors());
 
 //landing
 app.get("/", (req, res) => {

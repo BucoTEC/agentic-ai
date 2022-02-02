@@ -11,6 +11,7 @@
   "author": "Adnan Bucalovic",
   "license": "ISC",
   "dependencies": {
+    "cors": "^2.8.5",
     "dotenv": "^15.0.0",
     "express": "^4.17.2",
     "express-async-errors": "^3.1.1",
