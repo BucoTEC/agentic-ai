@@ -24,4 +24,11 @@ export const getSingleUser = async (req, res) => {
   }
   res.json(user);
 };
+
+export const deleteUser = async (req, res) => {
+  const { id } = req.params;
+  await User.findByIdAndDelete(id);
+  res.json("Deleted user succesfuly");
+};
+
 //TODO need to add bycrip for passeord encription and JWT for auth
