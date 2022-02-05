@@ -1,6 +1,11 @@
 import User from "../models/user.js";
 import "express-async-errors";
 import bcrypt from "bcrypt";
+import jwt from "jsonwebtoken";
+import dotenv from "dotenv";
+dotenv.config();
+
+const tokenSecret = process.env.TOKEN_SECRET;
 
 export const getAllUsers = async (req, res) => {
   const allUsers = await User.find();
@@ -10,7 +15,7 @@ export const getAllUsers = async (req, res) => {
   res.json(allUsers);
 };
 
-export const creatUser = async (req, res) => {
+export const creatUser = async (req, res, next) => {
   const { username, email, password } = req.body;
   const existingUser = await User.findOne({ email });
   if (existingUser) {
@@ -26,7 +31,14 @@ export const creatUser = async (req, res) => {
   });
   await newUser.save();
 
-  res.json(newUser);
+  const token = jwt.sign(
+    { userId: newUser._id, email: newUser.email },
+    tokenSecret,
+    { expiresIn: "1h" }
+  );
+
+  !token && next();
+  res.json({ userId: newUser._id, email: newUser.email, token });
 };
 
 export const getSingleUser = async (req, res) => {
@@ -40,8 +52,12 @@ export const getSingleUser = async (req, res) => {
 
 export const deleteUser = async (req, res) => {
   const { id } = req.params;
-  await User.findByIdAndDelete(id);
-  res.json("Deleted user succesfuly");
+  if (id === req.userData.userId) {
+    await User.findByIdAndDelete(id);
+
+    res.json("Deleted user succesfuly");
+  }
+  throw Error("You are not authorized do to that");
 };
 
 // export const updateUser =  async(req,res)=>{
