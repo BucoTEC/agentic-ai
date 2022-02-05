@@ -52,12 +52,11 @@ export const getSingleUser = async (req, res) => {
 
 export const deleteUser = async (req, res) => {
   const { id } = req.params;
-  if (id === req.userData.userId) {
-    await User.findByIdAndDelete(id);
-
-    res.json("Deleted user succesfuly");
+  if (id !== req.userData.userId) {
+    throw Error("You are not authorized do to that");
   }
-  throw Error("You are not authorized do to that");
+  await User.findByIdAndDelete(id);
+  res.json("Deleted user succesfuly");
 };
 
 // export const updateUser =  async(req,res)=>{
