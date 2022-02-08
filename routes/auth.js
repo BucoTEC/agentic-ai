@@ -1,8 +1,6 @@
 import express from "express";
 const router = express.Router();
+import { singIn } from "../controllers/auth.js";
 
-router.get("/", (req, res) => {
-  res.json("this is the  auth route");
-});
-
+router.get("/", singIn);
 export default router;
