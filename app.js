@@ -7,10 +7,9 @@ import bookings from "./routes/bookings.js";
 import errorHandler from "./middlwear/error-handler.js";
 import cors from "cors";
 
+//config
 dotenv.config();
 const app = express();
-
-//config
 app.use(express.json());
 app.use(cors());
 
