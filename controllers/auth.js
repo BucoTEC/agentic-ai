@@ -1,9 +1,32 @@
 import User from "../models/user.js";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
-export const singIn = async (req, res) => {
-  const { username, email, password } = req.body;
-  res.json("sing in");
+
+const tokenSecret = process.env.TOKEN_SECRET;
+
+export const singIn = async (req, res, next) => {
+  const { email, password } = req.body;
+  const existingUser = await User.findOne({ email });
+  if (!existingUser) {
+    next(Error("Wrong credentials, user not found"));
+  }
+  let validPassword = false;
+  validPassword = await bcrypt.compare(password, existingUser.password);
+
+  if (!validPassword) {
+    next(Error("Wrong credentials, user not found"));
+  }
+
+  const token = jwt.sign(
+    { userId: existingUser.id, email: existingUser.email },
+    "supersecret_dont_share",
+    { expiresIn: "1h" }
+  );
+  res.json({
+    token,
+    userId: existingUser._id,
+    username: existingUser.username,
+  });
 };
 
 export const creatUser = async (req, res, next) => {
