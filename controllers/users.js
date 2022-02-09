@@ -15,32 +15,6 @@ export const getAllUsers = async (req, res) => {
   res.json(allUsers);
 };
 
-export const creatUser = async (req, res, next) => {
-  const { username, email, password } = req.body;
-  const existingUser = await User.findOne({ email });
-  if (existingUser) {
-    console.log(!!existingUser);
-    throw Error("User already exists");
-  }
-  const hashedPassword = await bcrypt.hash(password, 12);
-
-  const newUser = new User({
-    username,
-    email,
-    password: hashedPassword,
-  });
-  await newUser.save();
-
-  const token = jwt.sign(
-    { userId: newUser._id, email: newUser.email },
-    tokenSecret,
-    { expiresIn: "1h" }
-  );
-
-  !token && next();
-  res.json({ userId: newUser._id, email: newUser.email, token });
-};
-
 export const getSingleUser = async (req, res) => {
   const { id } = req.params;
   const user = await User.findById(id);
