@@ -1,23 +1,21 @@
 import express from "express";
 const router = express.Router();
 
-router.get("/", (req, res) => {
-	res.json("get all bookings");
-});
+import {
+	allBokings,
+	oneBooking,
+	addBooking,
+	updateBooking,
+	deleteBooking,
+} from "../controllers/bookingControllers.js";
 
-router.get("/:id", (req, res) => {
-	res.json("find one booking ");
-});
+router.get("/", allBokings);
 
-router.post("/", (req, res) => {
-	res.json("create booking");
-});
+router.get("/:id", oneBooking);
 
-router.patch("/:id", (req, res) => {
-	res.json("update booking");
-});
+router.post("/", addBooking);
 
-router.delete("/:id", (req, res) => {
-	res.json("delete one booking");
-});
+router.patch("/:id", updateBooking);
+
+router.delete("/:id", deleteBooking);
 export default router;
