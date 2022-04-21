@@ -1,9 +1,9 @@
 import express from "express";
 import mongoose from "mongoose";
 import dotenv from "dotenv";
-import auth from "./routes/auth.js";
-import users from "./routes/users.js";
-import bookings from "./routes/bookings.js";
+import auth from "./routes/authRoutes.js";
+import users from "./routes/userRoutes.js";
+import bookings from "./routes/bookingRoutes.js";
 import errorHandler from "./middlwear/error-handler.js";
 import cors from "cors";
 
