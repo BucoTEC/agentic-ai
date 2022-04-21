@@ -29,7 +29,7 @@ export const singIn = async (req, res, next) => {
 	});
 };
 
-export const creatUser = async (req, res, next) => {
+export const register = async (req, res, next) => {
 	const { username, email, password } = req.body;
 	const existingUser = await User.findOne({ email });
 	if (existingUser) {
