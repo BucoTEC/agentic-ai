@@ -5,13 +5,17 @@ dotenv.config();
 const tokenSecret = process.env.TOKEN_SECRET;
 
 const authVerificator = (req, res, next) => {
-  const token = req.headers.authorization.split(" ")[1]; // Authorization: 'Bearer TOKEN'
-  if (!token) {
-    throw new Error("Authentication failed!");
-  }
-  const decodedToken = jwt.verify(token, tokenSecret);
-  req.userData = { userId: decodedToken.userId, userEmail: decodedToken.email };
-  next();
+	const token = req.headers.authorization.split(" ")[1]; // Authorization: 'Bearer TOKEN'
+	if (!token) {
+		throw new Error("Authentication failed!");
+	}
+	const decodedToken = jwt.verify(token, tokenSecret);
+	req.userData = {
+		userId: decodedToken.userId,
+		userEmail: decodedToken.email,
+		isAdmin: decodedToken.isAdmin,
+	};
+	next();
 };
 
 export default authVerificator;
