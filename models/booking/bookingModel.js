@@ -23,5 +23,10 @@ const bookingSchema = new mongoose.Schema({
 		enum: bookingDay,
 		required: true,
 	},
+	comment: {
+		type: String,
+		min: 5,
+	},
 });
-console.log(bookingTime, bookingDay);
+
+export default new mongoose.model("Booking", bookingSchema);
