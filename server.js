@@ -4,7 +4,7 @@ import dotenv from "dotenv";
 import auth from "./routes/authRoutes.js";
 import users from "./routes/userRoutes.js";
 import bookings from "./routes/bookingRoutes.js";
-import errorHandler from "./middlwear/error-handler.js";
+import errorHandler from "./middleware/error-handler.js";
 import cors from "cors";
 
 //config

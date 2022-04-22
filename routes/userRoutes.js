@@ -5,7 +5,7 @@ import {
 	getSingleUser,
 	deleteUser,
 } from "../controllers/userControllers.js";
-import authVerificator from "../middlwear/auth.js";
+import authVerificator from "../middleware/auth.js";
 
 router.get("/", getAllUsers);
 
