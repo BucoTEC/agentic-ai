@@ -1,4 +1,4 @@
-export default [
+export const time = [
 	"9:00",
 	"9:15",
 	"9:30",
@@ -42,3 +42,5 @@ export default [
 	"19:00",
 	"19:15",
 ];
+
+export const day = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", " Sat"];
