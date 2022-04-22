@@ -19,8 +19,8 @@ export const singIn = async (req, res, next) => {
 
 	const token = jwt.sign(
 		{ userId: existingUser.id, email: existingUser.email },
-		"supersecret_dont_share",
-		{ expiresIn: "1h" }
+		tokenSecret
+		// { expiresIn: "1h" }
 	);
 	res.json({
 		token,
@@ -47,7 +47,7 @@ export const register = async (req, res, next) => {
 	const token = jwt.sign(
 		{ userId: newUser._id, email: newUser.email, isAdmin: newUser.isAdmin },
 		tokenSecret
-		// { expiresIn: "1h" }
+		// { expiresIn: "1h" } just for dev
 	);
 
 	!token && next();
