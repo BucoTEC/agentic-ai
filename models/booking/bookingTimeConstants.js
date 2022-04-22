@@ -1,4 +1,4 @@
-export const time = [
+export const bookingTime = [
 	"9:00",
 	"9:15",
 	"9:30",
@@ -43,4 +43,4 @@ export const time = [
 	"19:15",
 ];
 
-export const day = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", " Sat"];
+export const bookingDay = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];

@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 
-import timeConstants from "./bookingTimeConstants.js";
+import { bookingTime, bookingDay } from "./bookingTimeConstants.js";
 
 const bookingSchema = new mongoose.Schema({
 	user: {
@@ -15,7 +15,13 @@ const bookingSchema = new mongoose.Schema({
 	},
 	time: {
 		type: String,
-		enum: timeConstants,
+		enum: bookingTime,
+		required: true,
+	},
+	day: {
+		type: String,
+		enum: bookingDay,
 		required: true,
 	},
 });
+console.log(bookingTime, bookingDay);
