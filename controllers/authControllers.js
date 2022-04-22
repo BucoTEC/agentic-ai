@@ -46,8 +46,8 @@ export const register = async (req, res, next) => {
 
 	const token = jwt.sign(
 		{ userId: newUser._id, email: newUser.email, isAdmin: newUser.isAdmin },
-		tokenSecret,
-		{ expiresIn: "1h" }
+		tokenSecret
+		// { expiresIn: "1h" }
 	);
 
 	!token && next();
