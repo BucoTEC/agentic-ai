@@ -1,11 +1,11 @@
 import User from "../models/userModel.js";
 import "express-async-errors";
-import bcrypt from "bcrypt";
-import jwt from "jsonwebtoken";
+// import bcrypt from "bcrypt";
+// import jwt from "jsonwebtoken";
 import dotenv from "dotenv";
 dotenv.config();
 
-const tokenSecret = process.env.TOKEN_SECRET;
+// const tokenSecret = process.env.TOKEN_SECRET;
 
 export const getAllUsers = async (req, res) => {
 	const allUsers = await User.find();
