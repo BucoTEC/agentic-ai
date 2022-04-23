@@ -1,3 +1,5 @@
+import "express-async-errors";
+
 import Booking from "../models/booking/bookingModel.js";
 
 export const allBokings = (req, res) => {
@@ -11,14 +13,23 @@ export const oneBooking = (req, res) => {
 	res.json("find onr booking from controller");
 };
 
-export const addBooking = (req, res) => {
+// TODO CONTINUE WORK HERE
+export const addBooking = async (req, res) => {
 	const { userId } = req.userData;
+	const { day, time } = req.body;
 	console.log(Booking);
 	//find user and check if he has two more bookings on the same day
 	//create booking
+	const newBooking = new Booking({ user: userId, day, time });
+	console.log(newBooking);
 	//add booking to user
 	//return confiramtion message
-	res.json({ message: "add book controler", userId });
+	res.json({
+		message: "add book controler",
+		data: {
+			userIdinBooking: newBooking.user,
+		},
+	});
 };
 
 export const updateBooking = (req, res) => {
