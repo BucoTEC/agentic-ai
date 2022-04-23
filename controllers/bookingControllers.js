@@ -14,7 +14,6 @@ export const oneBooking = (req, res) => {
 	res.json("find onr booking from controller");
 };
 
-// TODO CONTINUE WORK HERE
 export const addBooking = async (req, res) => {
 	const { userId } = req.userData;
 	const { day, time } = req.body;
@@ -30,7 +29,7 @@ export const addBooking = async (req, res) => {
 	res.json({
 		message: "succesfuly added booking",
 		data: {
-			currentUser,
+			creator: currentUser.username,
 			newBooking,
 		},
 	});
@@ -44,10 +43,26 @@ export const updateBooking = (req, res) => {
 	res.json("update boking from controller");
 };
 
-export const deleteBooking = (req, res) => {
-	//get id from path
-	//search for booking using path param
-	//check if found booking match user id from auth middlwear or is user admin
+export const deleteBooking = async (req, res) => {
+	const { userId, isAdmin } = req.userData;
+	const { id } = req.params;
+
+	const booking = await Booking.findById(id);
+	if (!booking) {
+		return res.json(`No booking found with id: ${id}`);
+	}
+	if (booking.user != userId || isAdmin) {
+		throw new Error("you are not the owner of this booking");
+	}
+
+	await booking.remove();
+
+	const user = await User.findById(userId);
+
+	const newBookings = user.bookings.filter((item) => item != id);
+
+	user.bookings = newBookings;
+	await user.save();
 	//delete booking
-	res.json("delete bokking from controller");
+	res.json("succesfuly deleted booking");
 };
