@@ -1,20 +1,23 @@
 import User from "../models/userModel.js";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
+import dotenv from "dotenv";
 
-const tokenSecret = process.env.TOKEN_SECRET || "hahaha_false_secret";
+dotenv.config();
 
-export const singIn = async (req, res, next) => {
+const tokenSecret = process.env.JWT_SECRET;
+
+export const singIn = async (req, res) => {
 	const { email, password } = req.body;
 	const existingUser = await User.findOne({ email });
 	if (!existingUser) {
-		next(Error("Wrong credentials, user not found"));
+		throw new Error("Wrong credentials, user not found");
 	}
 	let validPassword = false;
 	validPassword = await bcrypt.compare(password, existingUser.password);
 
 	if (!validPassword) {
-		next(Error("Wrong credentials, user not found"));
+		throw new Error("Wrong credentials, user not found");
 	}
 
 	const token = jwt.sign(
