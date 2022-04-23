@@ -19,18 +19,19 @@ export const addBooking = async (req, res) => {
 	const { userId } = req.userData;
 	const { day, time } = req.body;
 	const currentUser = await User.findById(userId);
+
 	//find user and check if he has two more bookings on the same day
-	//create booking
+
 	const newBooking = new Booking({ user: userId, day, time });
-	console.log(newBooking);
-	//add booking to user
-	//return confiramtion message
-	currentUser.bookings.push(newBooking._id);
+	currentUser.bookings.push(newBooking);
+
+	await currentUser.save();
+	await newBooking.save();
 	res.json({
-		message: "add book controler",
-		currentUser,
+		message: "succesfuly added booking",
 		data: {
-			userIdinBooking: newBooking.user,
+			currentUser,
+			newBooking,
 		},
 	});
 };
