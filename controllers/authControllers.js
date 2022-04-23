@@ -1,8 +1,9 @@
-import User from "../models/userModel.js";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import dotenv from "dotenv";
+import "express-async-errors";
 
+import User from "../models/userModel.js";
 dotenv.config();
 
 const tokenSecret = process.env.JWT_SECRET;
@@ -36,7 +37,7 @@ export const register = async (req, res, next) => {
 	const { username, email, password } = req.body;
 	const existingUser = await User.findOne({ email });
 	if (existingUser) {
-		next(Error("User already exists"));
+		throw new Error("User already exists");
 	}
 	const hashedPassword = await bcrypt.hash(password, 12);
 
