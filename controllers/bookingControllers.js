@@ -1,3 +1,5 @@
+import Booking from "../models/booking/bookingModel.js";
+
 export const allBokings = (req, res) => {
 	//check if user admin
 	//if not admin look for id in query to return onli current user bookings
@@ -10,12 +12,13 @@ export const oneBooking = (req, res) => {
 };
 
 export const addBooking = (req, res) => {
-	//get user id from middlewar
+	const { userId } = req.userData;
+	console.log(Booking);
 	//find user and check if he has two more bookings on the same day
 	//create booking
 	//add booking to user
 	//return confiramtion message
-	res.json("add one booking from controller");
+	res.json({ message: "add book controler", userId });
 };
 
 export const updateBooking = (req, res) => {
