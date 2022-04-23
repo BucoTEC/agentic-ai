@@ -9,7 +9,6 @@ export const oneBooking = (req, res) => {
 	res.json("find onr booking from controller");
 };
 
-//check if the bookig day is avalible
 export const addBooking = (req, res) => {
 	//get user id from middlewar
 	//find user and check if he has two more bookings on the same day

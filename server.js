@@ -1,11 +1,14 @@
 import express from "express";
 import mongoose from "mongoose";
 import dotenv from "dotenv";
+import cors from "cors";
+
 import auth from "./routes/authRoutes.js";
 import users from "./routes/userRoutes.js";
 import bookings from "./routes/bookingRoutes.js";
+
 import errorHandler from "./middleware/error-handler.js";
-import cors from "cors";
+import authVerification from "./middleware/auth.js";
 
 //config
 dotenv.config();
@@ -21,7 +24,7 @@ app.get("/", (req, res) => {
 //routes
 app.use("/api/auth", auth);
 app.use("/api/users", users);
-app.use("/api/bookings", bookings);
+app.use("/api/bookings", authVerification, bookings);
 
 // route catcher
 app.all("*", (req, res, next) => {
