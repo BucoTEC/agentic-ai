@@ -2,7 +2,7 @@ import dotenv from "dotenv";
 import jwt from "jsonwebtoken";
 dotenv.config();
 
-const tokenSecret = process.env.JWT_SECRET;
+const tokenSecret = process.env.JWT_SECRET; // ! ADD TOKEN IN ENV IF MISSING
 
 const authVerificator = (req, res, next) => {
 	if (!req.headers.authorization) {
