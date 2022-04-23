@@ -1,6 +1,7 @@
 import "express-async-errors";
 
 import Booking from "../models/booking/bookingModel.js";
+import User from "../models/userModel.js";
 
 export const allBokings = (req, res) => {
 	//check if user admin
@@ -17,15 +18,17 @@ export const oneBooking = (req, res) => {
 export const addBooking = async (req, res) => {
 	const { userId } = req.userData;
 	const { day, time } = req.body;
-	console.log(Booking);
+	const currentUser = await User.findById(userId);
 	//find user and check if he has two more bookings on the same day
 	//create booking
 	const newBooking = new Booking({ user: userId, day, time });
 	console.log(newBooking);
 	//add booking to user
 	//return confiramtion message
+	currentUser.bookings.push(newBooking._id);
 	res.json({
 		message: "add book controler",
+		currentUser,
 		data: {
 			userIdinBooking: newBooking.user,
 		},

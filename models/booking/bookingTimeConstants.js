@@ -43,4 +43,12 @@ export const bookingTime = [
 	"19:15",
 ];
 
-export const bookingDay = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+export const bookingDay = [
+	"Monday",
+	"Tuesday",
+	"Wednesday",
+	"Thursday",
+	"Friday",
+	"Saturday",
+	"Sunday",
+];
