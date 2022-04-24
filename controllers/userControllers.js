@@ -12,7 +12,6 @@ dotenv.config();
 
 export const getAllUsers = async (req, res) => {
 	const { isAdmin } = req.userData;
-
 	if (!isAdmin) {
 		throw new Error(403, "You are not authorized to view all users");
 	}

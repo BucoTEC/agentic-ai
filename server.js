@@ -25,7 +25,7 @@ app.get("/", (req, res) => {
 
 //routes
 app.use("/api/auth", auth);
-app.use("/api/users", users);
+app.use("/api/users", authVerification, users);
 app.use("/api/bookings", authVerification, bookings);
 
 // route catcher

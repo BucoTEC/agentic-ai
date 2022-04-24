@@ -59,5 +59,10 @@ export const register = async (req, res, next) => {
 	);
 
 	!token && next();
-	res.json({ userId: newUser._id, email: newUser.email, token });
+	res.json({
+		userId: newUser._id,
+		email: newUser.email,
+		isAdmin: newUser.isAdmin,
+		token,
+	});
 };
