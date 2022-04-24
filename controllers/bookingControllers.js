@@ -5,6 +5,9 @@ import User from "../models/userModel.js";
 
 import ResError from "../utils/ResError.js";
 
+// TODO add data validation on incoming req with body, express validator
+// TODO add date picker limitation depending on curretn time and date
+
 export const allBokings = async (req, res) => {
 	const { isAdmin } = req.userData;
 	if (isAdmin) {
