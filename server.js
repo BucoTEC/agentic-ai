@@ -10,6 +10,8 @@ import bookings from "./routes/bookingRoutes.js";
 import errorHandler from "./middleware/error-handler.js";
 import authVerification from "./middleware/auth.js";
 
+import ResError from "./utils/ResError.js";
+
 //config
 dotenv.config();
 const app = express();
@@ -27,8 +29,8 @@ app.use("/api/users", users);
 app.use("/api/bookings", authVerification, bookings);
 
 // route catcher
-app.all("*", (req, res, next) => {
-	next(new Error("Route not found"));
+app.all("*", () => {
+	throw new ResError(404, "Route not found");
 });
 
 //error handling
