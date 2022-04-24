@@ -22,7 +22,7 @@ export const oneBooking = async (req, res) => {
 	if (!booking) {
 		res.json(`No booking found with id: ${id}`);
 	}
-	if (userId !== booking.user || isAdmin) {
+	if (userId != booking.user || isAdmin) {
 		return res.json("You are not authorized to view that booking");
 	}
 
