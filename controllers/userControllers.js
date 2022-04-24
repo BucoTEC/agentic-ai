@@ -62,6 +62,7 @@ export const updateUser = async (req, res) => {
 			data: {
 				username: updatedUser.username,
 				email: updatedUser.email,
+				isAdmin: updateUser.isAdmin,
 			},
 		});
 	}

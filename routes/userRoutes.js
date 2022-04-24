@@ -4,13 +4,15 @@ import {
 	getAllUsers,
 	getSingleUser,
 	deleteUser,
+	updateUser,
 } from "../controllers/userControllers.js";
-import authVerificator from "../middleware/auth.js";
 
 router.get("/", getAllUsers);
 
 router.get("/:id", getSingleUser);
 
-router.delete("/:id", authVerificator, deleteUser);
+router.post("/:id", updateUser);
+
+router.delete("/:id", deleteUser);
 
 export default router;
