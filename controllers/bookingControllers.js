@@ -56,16 +56,16 @@ export const addBooking = async (req, res) => {
 };
 
 export const updateBooking = async (req, res) => {
-	//update booking
 	const { userId, isAdmin } = req.userData;
 	const { id } = req.params;
+
 	const booking = await Booking.findById(id);
 	if (!booking) {
 		throw new ResError(404, `Not found booking with id: ${id}`);
 	}
-	if (userId == booking.user || isAdmin) {
-		const updatedBooking = await Booking.findByIdAndUpdate(id, req.body);
 
+	if (userId == booking.user || isAdmin) {
+		const updatedBooking = await Booking.findByIdAndUpdate(id, { ...req.body });
 		return res
 			.status(200)
 			.json({ message: "Booking updated", data: updatedBooking });
