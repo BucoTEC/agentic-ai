@@ -25,7 +25,7 @@ export const oneBooking = async (req, res) => {
 		return res.json({ message: "One booking details", data: booking });
 	}
 
-	res.json("You are not authorized to view that booking");
+	throw new Error("You are not authorized to view this booking");
 };
 
 export const addBooking = async (req, res) => {
