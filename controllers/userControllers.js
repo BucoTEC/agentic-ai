@@ -1,27 +1,39 @@
-import User from "../models/userModel.js";
 import "express-async-errors";
+import dotenv from "dotenv";
 // import bcrypt from "bcrypt";
 // import jwt from "jsonwebtoken";
-import dotenv from "dotenv";
+
+import User from "../models/userModel.js";
+import ResError from "../utils/ResError.js";
+
 dotenv.config();
 
-// const tokenSecret = process.env.TOKEN_SECRET;
+// const tokenSecret = process.env.JWT_SECRET;
 
 export const getAllUsers = async (req, res) => {
+	const { isAdmin } = req.userData;
+
+	if (!isAdmin) {
+		throw new Error(403, "You are not authorized to view all users");
+	}
 	const allUsers = await User.find();
 	if (allUsers.length < 1) {
-		throw new Error("No users in database");
+		throw new ResError(404, "No users in database");
 	}
-	res.json(allUsers);
+	res.status(200).json({ message: "All users", data: allUsers });
 };
 
 export const getSingleUser = async (req, res) => {
 	const { id } = req.params;
+	const { userId, isAdmin } = req.userData;
 	const user = await User.findById(id);
 	if (!user) {
-		throw new Error("No user with this id");
+		throw new ResError(404, "No user with this id");
 	}
-	res.json(user);
+	if (user._id == userId || isAdmin) {
+		return res.status(200).json({ message: "Your requested user", data: user });
+	}
+	throw new ResError(403);
 };
 
 export const deleteUser = async (req, res) => {
