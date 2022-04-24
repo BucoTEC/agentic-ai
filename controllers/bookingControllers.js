@@ -12,12 +12,21 @@ export const allBokings = async (req, res) => {
 	const { userId } = req.userData;
 	const currentUserBookings = await Booking.find({ user: userId });
 	res.json({ message: "current user bookings", data: currentUserBookings });
-	//if not admin look for id in query to return onli current user bookings
-	//retunr bookings
 };
 
-export const oneBooking = (req, res) => {
-	res.json("find onr booking from controller");
+export const oneBooking = async (req, res) => {
+	const { userId, isAdmin } = req.userData;
+	const { id } = req.params;
+
+	const booking = await Booking.findById(id);
+	if (!booking) {
+		res.json(`No booking found with id: ${id}`);
+	}
+	if (userId !== booking.user || isAdmin) {
+		return res.json("You are not authorized to view that booking");
+	}
+
+	res.json({ message: "One booking details", data: booking });
 };
 
 export const addBooking = async (req, res) => {
