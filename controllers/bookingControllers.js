@@ -4,10 +4,10 @@ import Booking from "../models/booking/bookingModel.js";
 import User from "../models/userModel.js";
 
 export const allBokings = async (req, res) => {
-	const { isAdmin } = req.UserData;
+	const { isAdmin } = req.userData;
 	if (isAdmin) {
 		const allBookings = await Booking.find();
-		return res.json({ message: "All bokkings", data: allBookings });
+		return res.json({ message: "All bookings", data: allBookings });
 	}
 	const { userId } = req.userData;
 	const currentUserBookings = await Booking.find({ user: userId });
