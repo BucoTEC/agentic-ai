@@ -7,7 +7,7 @@ import auth from "./routes/authRoutes.js";
 import users from "./routes/userRoutes.js";
 import bookings from "./routes/bookingRoutes.js";
 
-import errorHandler from "./middleware/error-handler.js";
+import errorHandler from "./utils/error-handler.js";
 import authVerification from "./middleware/auth.js";
 
 import ResError from "./utils/ResError.js";
