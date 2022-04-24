@@ -9,9 +9,11 @@ export const allBokings = async (req, res) => {
 		const allBookings = await Booking.find();
 		return res.json({ message: "All bokkings", data: allBookings });
 	}
+	const { userId } = req.userData;
+	const currentUserBookings = await Booking.find({ user: userId });
+	res.json({ message: "current user bookings", data: currentUserBookings });
 	//if not admin look for id in query to return onli current user bookings
 	//retunr bookings
-	res.json("get all bookings from controller");
 };
 
 export const oneBooking = (req, res) => {
