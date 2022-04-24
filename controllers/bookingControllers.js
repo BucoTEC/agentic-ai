@@ -3,6 +3,8 @@ import "express-async-errors";
 import Booking from "../models/booking/bookingModel.js";
 import User from "../models/userModel.js";
 
+import ResError from "../utils/ResError.js";
+
 export const allBokings = async (req, res) => {
 	const { isAdmin } = req.userData;
 	if (isAdmin) {
@@ -29,7 +31,7 @@ export const oneBooking = async (req, res) => {
 			.json({ message: "One booking details", data: booking });
 	}
 
-	throw new Error("You are not authorized to view this booking");
+	throw new ResError(403, "You are not authorized to view this booking");
 };
 
 export const addBooking = async (req, res) => {
@@ -70,7 +72,7 @@ export const deleteBooking = async (req, res) => {
 		return res.json(`No booking found with id: ${id}`);
 	}
 	if (booking.user != userId || !isAdmin) {
-		throw new Error("you are not the owner of this booking");
+		throw new ResError(403, "You are not the owner of this booking");
 	}
 
 	await booking.remove();
