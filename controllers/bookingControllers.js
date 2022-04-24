@@ -7,11 +7,13 @@ export const allBokings = async (req, res) => {
 	const { isAdmin } = req.userData;
 	if (isAdmin) {
 		const allBookings = await Booking.find();
-		return res.json({ message: "All bookings", data: allBookings });
+		return res.status(200).json({ message: "All bookings", data: allBookings });
 	}
 	const { userId } = req.userData;
 	const currentUserBookings = await Booking.find({ user: userId });
-	res.json({ message: "current user bookings", data: currentUserBookings });
+	res
+		.status(200)
+		.json({ message: "current user bookings", data: currentUserBookings });
 };
 
 export const oneBooking = async (req, res) => {
@@ -22,7 +24,9 @@ export const oneBooking = async (req, res) => {
 		res.json(`No booking found with id: ${id}`);
 	}
 	if (userId == booking.user || isAdmin) {
-		return res.json({ message: "One booking details", data: booking });
+		return res
+			.status(200)
+			.json({ message: "One booking details", data: booking });
 	}
 
 	throw new Error("You are not authorized to view this booking");
@@ -77,6 +81,6 @@ export const deleteBooking = async (req, res) => {
 
 	user.bookings = newBookings;
 	await user.save();
-	//delete booking
+
 	res.json("succesfuly deleted booking");
 };
