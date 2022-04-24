@@ -3,8 +3,12 @@ import "express-async-errors";
 import Booking from "../models/booking/bookingModel.js";
 import User from "../models/userModel.js";
 
-export const allBokings = (req, res) => {
-	//check if user admin
+export const allBokings = async (req, res) => {
+	const { isAdmin } = req.UserData;
+	if (isAdmin) {
+		const allBookings = await Booking.find();
+		return res.json({ message: "All bokkings", data: allBookings });
+	}
 	//if not admin look for id in query to return onli current user bookings
 	//retunr bookings
 	res.json("get all bookings from controller");
