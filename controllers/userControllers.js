@@ -41,7 +41,7 @@ export const deleteUser = async (req, res) => {
 
 	if (id == userId || isAdmin) {
 		await User.findByIdAndDelete(id);
-		return res.status(204).json("Deleted user successfuly");
+		return res.status(204).json({ message: "Deleted user successfuly" });
 	}
 	throw ResError(403, "You are not authorized do to that");
 };
