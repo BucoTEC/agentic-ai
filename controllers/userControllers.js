@@ -1,6 +1,6 @@
 import "express-async-errors";
 import dotenv from "dotenv";
-// import bcrypt from "bcrypt";
+import bcrypt from "bcrypt";
 // import jwt from "jsonwebtoken";
 
 import User from "../models/userModel.js";
@@ -47,8 +47,24 @@ export const deleteUser = async (req, res) => {
 	throw ResError(403, "You are not authorized do to that");
 };
 
-// export const updateUser =  async(req,res)=>{
-//   const {id} = req.params
-//   const updatedUser
-// }
-//TODO need to add bycrip for passeord encription and JWT for auth
+// TODO GENERATE UPDATED TOKEN
+export const updateUser = async (req, res) => {
+	const { id } = req.params;
+	const { userId, isAdmin } = req.userData;
+
+	if (id == userId || isAdmin) {
+		if (req.body.password) {
+			req.body.password = await bcrypt.hash(req.body.password, 12);
+		}
+
+		const updatedUser = await User.findByIdAndUpdate(id, { ...req.body });
+		return res.status(201).json({
+			message: "User updated successfully",
+			data: {
+				username: updatedUser.username,
+				email: updatedUser.email,
+			},
+		});
+	}
+	throw ResError(403, "You are not authorized do to that");
+};
