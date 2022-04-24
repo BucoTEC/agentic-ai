@@ -55,12 +55,23 @@ export const addBooking = async (req, res) => {
 	});
 };
 
-export const updateBooking = (req, res) => {
-	//get id from path
-	//search for booking using path param
-	//check if found booking match user id from auth middlwear or is user admin
+export const updateBooking = async (req, res) => {
 	//update booking
-	res.json("update boking from controller");
+	const { userId, isAdmin } = req.userData;
+	const { id } = req.params;
+	const booking = await Booking.findById(id);
+	if (!booking) {
+		res.json(`No booking found with id: ${id}`);
+	}
+	if (userId == booking.user || isAdmin) {
+		const updatedBooking = await Booking.findByIdAndUpdate(id, req.body);
+
+		return res
+			.status(200)
+			.json({ message: "Booking updated", data: updatedBooking });
+	}
+
+	throw new ResError(403, "You are not authorized to view this booking");
 };
 
 export const deleteBooking = async (req, res) => {
