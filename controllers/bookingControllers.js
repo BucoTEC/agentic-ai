@@ -17,16 +17,15 @@ export const allBokings = async (req, res) => {
 export const oneBooking = async (req, res) => {
 	const { userId, isAdmin } = req.userData;
 	const { id } = req.params;
-
 	const booking = await Booking.findById(id);
 	if (!booking) {
 		res.json(`No booking found with id: ${id}`);
 	}
-	if (userId != booking.user || isAdmin) {
-		return res.json("You are not authorized to view that booking");
+	if (userId == booking.user || isAdmin) {
+		return res.json({ message: "One booking details", data: booking });
 	}
 
-	res.json({ message: "One booking details", data: booking });
+	res.json("You are not authorized to view that booking");
 };
 
 export const addBooking = async (req, res) => {
@@ -66,7 +65,7 @@ export const deleteBooking = async (req, res) => {
 	if (!booking) {
 		return res.json(`No booking found with id: ${id}`);
 	}
-	if (booking.user != userId || isAdmin) {
+	if (booking.user != userId || !isAdmin) {
 		throw new Error("you are not the owner of this booking");
 	}
 

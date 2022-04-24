@@ -22,7 +22,11 @@ export const singIn = async (req, res) => {
 	}
 
 	const token = jwt.sign(
-		{ userId: existingUser.id, email: existingUser.email },
+		{
+			userId: existingUser.id,
+			email: existingUser.email,
+			isAdmin: existingUser.isAdmin,
+		},
 		tokenSecret
 		// { expiresIn: "1h" }
 	);
