@@ -1,5 +1,4 @@
 import express from "express";
-import mongoose from "mongoose";
 import dotenv from "dotenv";
 import cors from "cors";
 
@@ -7,9 +6,11 @@ import auth from "./routes/authRoutes.js";
 import users from "./routes/userRoutes.js";
 import bookings from "./routes/bookingRoutes.js";
 
-import errorHandler from "./utils/error-handler.js";
 import authVerification from "./middleware/auth.js";
 
+import connectToDatabase from "./db/connectToDatabase.js";
+
+import errorHandler from "./utils/error-handler.js";
 import ResError from "./utils/ResError.js";
 
 //config
@@ -39,12 +40,9 @@ app.use(errorHandler);
 // startup
 const port = process.env.PORT || 5000;
 const db = process.env.MONGO_URL || "mongodb://localhost:27017/bookingAPI";
-mongoose
-	.connect(db)
-	.then(console.log("Conection to database is open"))
-	.catch((err) => {
-		console.log(`Ups there was an error: ${err}`);
-	});
+
+connectToDatabase(db);
+
 app.listen(port, () => {
 	console.log(`Server is operational on port: ${port}`);
 });
