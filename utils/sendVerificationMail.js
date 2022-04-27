@@ -4,18 +4,20 @@ import dotenv from "dotenv";
 dotenv.config();
 
 const domainName = process.env.CURRENT_API_ADRESS;
+const senderEmail = process.env.SENDER_EMAIL;
+const senderEmailPassword = process.env.SENDER_EMAIL_PASSWORD;
 
 const sendVerificationMail = (reciver, token) => {
 	const transporter = nodemailer.createTransport({
 		service: "hotmail",
 		auth: {
-			user: "test040120004716@outlook.com",
-			pass: "0401Adnan",
+			user: senderEmail,
+			pass: senderEmailPassword,
 		},
 	});
 
 	const options = {
-		from: "test040120004716@outlook.com",
+		from: senderEmail,
 		to: reciver,
 		subject: "email from booking api",
 		text: "fix run on reload your token",
