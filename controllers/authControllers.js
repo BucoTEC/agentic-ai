@@ -74,6 +74,28 @@ export const register = async (req, res, next) => {
 	});
 	newPendingUser && sendVerificationMail(email, token);
 };
-export const confirmRegister = (req, res) => {
-	res.json("confirm register");
+
+export const confirmRegister = async (req, res) => {
+	const { token } = req.params;
+	const { userId } = jwt.verify(token, tokenSecret);
+
+	const existingPendingUser = await PendingUser.findById(userId);
+	if (!existingPendingUser) {
+		throw new Error("Pending user or link timed out");
+	}
+
+	const newUser = new User({
+		username: existingPendingUser.username,
+		email: existingPendingUser.email,
+		password: existingPendingUser.password,
+	});
+	await newUser.save();
+
+	res.json({
+		message: "user creation confirmed",
+		data: {
+			userId: newUser._id,
+			token,
+		},
+	});
 };
