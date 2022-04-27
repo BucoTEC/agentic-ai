@@ -1,7 +1,7 @@
 import "express-async-errors";
 
 import Booking from "../models/booking/bookingModel.js";
-import User from "../models/userModel.js";
+import User from "../models/user/userModel.js";
 
 import ResError from "../utils/ResError.js";
 
