@@ -3,7 +3,7 @@ import dotenv from "dotenv";
 import bcrypt from "bcrypt";
 // import jwt from "jsonwebtoken";
 
-import User from "../models/userModel.js";
+import User from "../models/user/userModel.js";
 import ResError from "../utils/ResError.js";
 
 dotenv.config();

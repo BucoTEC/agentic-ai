@@ -3,7 +3,7 @@ import jwt from "jsonwebtoken";
 import dotenv from "dotenv";
 import "express-async-errors";
 
-import User from "../models/userModel.js";
+import User from "../models/user/userModel.js";
 import PendingUser from "../models/user/pendingUserModel.js";
 
 dotenv.config();
