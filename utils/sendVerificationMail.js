@@ -1,4 +1,9 @@
 import nodemailer from "nodemailer";
+import dotenv from "dotenv";
+
+dotenv.config();
+
+const domainName = process.env.CURRENT_API_ADRESS;
 
 const sendVerificationMail = (reciver, token) => {
 	const transporter = nodemailer.createTransport({
@@ -16,7 +21,7 @@ const sendVerificationMail = (reciver, token) => {
 		text: "fix run on reload your token",
 		html: `<b>Hello world?</b> 
          <p>Follow click on the link bellowe to verifi email</p> 
-         <a href=test/${token}>Verifi adress</a>`,
+         <a href="${domainName}/api/auth/confirm/${token}">Verifi adress</a>`,
 	};
 
 	transporter.sendMail(options, (err, info) => {

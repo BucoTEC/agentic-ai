@@ -28,7 +28,7 @@ const pendingUserSchema = new mongoose.Schema({
 		min: 6,
 		required: true,
 	},
-	expiresAt: { type: Date, expires: "2m", default: Date.now },
+	expiresAt: { type: Date, expires: "10m", default: Date.now },
 });
 
 export default new mongoose.model("PendingUser", pendingUserSchema);

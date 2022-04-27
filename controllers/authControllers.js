@@ -61,7 +61,7 @@ export const register = async (req, res, next) => {
 			userId: newPendingUser._id,
 		},
 		tokenSecret,
-		{ expiresIn: "2m" }
+		{ expiresIn: "10m" }
 	);
 
 	!token && next();
@@ -90,12 +90,11 @@ export const confirmRegister = async (req, res) => {
 		password: existingPendingUser.password,
 	});
 	await newUser.save();
-
+	await existingPendingUser.remove();
 	res.json({
 		message: "user creation confirmed",
 		data: {
 			userId: newUser._id,
-			token,
 		},
 	});
 };
