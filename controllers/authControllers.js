@@ -4,6 +4,8 @@ import dotenv from "dotenv";
 import "express-async-errors";
 
 import User from "../models/userModel.js";
+import PendingUser from "../models/user/pendingUserModel.js";
+
 dotenv.config();
 
 const tokenSecret = process.env.JWT_SECRET;
@@ -45,24 +47,32 @@ export const register = async (req, res, next) => {
 	}
 	const hashedPassword = await bcrypt.hash(password, 12);
 
-	const newUser = new User({
+	const newPendingUser = new PendingUser({
 		username,
 		email,
 		password: hashedPassword,
 	});
-	await newUser.save();
+	await newPendingUser.save();
 
 	const token = jwt.sign(
-		{ userId: newUser._id, email: newUser.email, isAdmin: newUser.isAdmin },
-		tokenSecret
-		// { expiresIn: "1h" } just for dev
+		{
+			userId: newPendingUser._id,
+			email: newPendingUser.email,
+			isAdmin: newPendingUser.isAdmin,
+		},
+		tokenSecret,
+		{ expiresIn: "2m" }
 	);
 
 	!token && next();
 	res.json({
-		userId: newUser._id,
-		email: newUser.email,
-		isAdmin: newUser.isAdmin,
+		userId: newPendingUser._id,
+		email: newPendingUser.email,
+		isAdmin: newPendingUser.isAdmin,
 		token,
 	});
+};
+
+export const confirmRegister = (req, res) => {
+	res.json("confirm register");
 };
