@@ -73,8 +73,8 @@ export const register = async (req, res, next) => {
 		isAdmin: newPendingUser.isAdmin,
 		token,
 	});
+	newPendingUser && sendVerificationMail(email);
 };
-sendVerificationMail();
 export const confirmRegister = (req, res) => {
 	res.json("confirm register");
 };

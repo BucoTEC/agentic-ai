@@ -1,6 +1,6 @@
 import nodemailer from "nodemailer";
 
-const sendVerificationMail = () => {
+const sendVerificationMail = (reciver) => {
 	const transporter = nodemailer.createTransport({
 		service: "hotmail",
 		auth: {
@@ -11,9 +11,9 @@ const sendVerificationMail = () => {
 
 	const options = {
 		from: "test040120004716@outlook.com",
-		to: "adnan.bucalovic13@gmail.com",
+		to: reciver,
 		subject: "email from booking api",
-		text: "hello from booking api final test for node mailer",
+		text: "fix run on reload",
 	};
 
 	transporter.sendMail(options, (err, info) => {
