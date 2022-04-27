@@ -1,6 +1,6 @@
 import nodemailer from "nodemailer";
 
-const sendVerificationMail = (reciver) => {
+const sendVerificationMail = (reciver, token) => {
 	const transporter = nodemailer.createTransport({
 		service: "hotmail",
 		auth: {
@@ -13,7 +13,10 @@ const sendVerificationMail = (reciver) => {
 		from: "test040120004716@outlook.com",
 		to: reciver,
 		subject: "email from booking api",
-		text: "fix run on reload",
+		text: "fix run on reload your token",
+		html: `<b>Hello world?</b> 
+         <p>Follow click on the link bellowe to verifi email</p> 
+         <a href=test/${token}>Verifi adress</a>`,
 	};
 
 	transporter.sendMail(options, (err, info) => {

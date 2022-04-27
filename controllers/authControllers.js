@@ -59,8 +59,6 @@ export const register = async (req, res, next) => {
 	const token = jwt.sign(
 		{
 			userId: newPendingUser._id,
-			email: newPendingUser.email,
-			isAdmin: newPendingUser.isAdmin,
 		},
 		tokenSecret,
 		{ expiresIn: "2m" }
@@ -68,12 +66,13 @@ export const register = async (req, res, next) => {
 
 	!token && next();
 	res.json({
-		userId: newPendingUser._id,
-		email: newPendingUser.email,
-		isAdmin: newPendingUser.isAdmin,
-		token,
+		message: "panding user created",
+		data: {
+			userId: newPendingUser._id,
+			token,
+		},
 	});
-	newPendingUser && sendVerificationMail(email);
+	newPendingUser && sendVerificationMail(email, token);
 };
 export const confirmRegister = (req, res) => {
 	res.json("confirm register");
