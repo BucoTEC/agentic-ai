@@ -10,7 +10,6 @@ const pendingUserSchema = new mongoose.Schema({
 		type: String,
 		min: 3,
 		max: 20,
-		unique: true,
 		required: true,
 	},
 	email: {

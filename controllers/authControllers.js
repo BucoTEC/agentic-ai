@@ -6,6 +6,8 @@ import "express-async-errors";
 import User from "../models/user/userModel.js";
 import PendingUser from "../models/user/pendingUserModel.js";
 
+import sendVerificationMail from "../utils/sendVerificationMail.js";
+
 dotenv.config();
 
 const tokenSecret = process.env.JWT_SECRET;
@@ -72,7 +74,7 @@ export const register = async (req, res, next) => {
 		token,
 	});
 };
-
+sendVerificationMail();
 export const confirmRegister = (req, res) => {
 	res.json("confirm register");
 };

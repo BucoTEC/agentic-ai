@@ -13,7 +13,7 @@ const sendVerificationMail = () => {
 		from: "test040120004716@outlook.com",
 		to: "adnan.bucalovic13@gmail.com",
 		subject: "email from booking api",
-		text: "hello from booking api",
+		text: "hello from booking api final test for node mailer",
 	};
 
 	transporter.sendMail(options, (err, info) => {
