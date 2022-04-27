@@ -3,9 +3,9 @@ import dotenv from "dotenv";
 
 dotenv.config();
 
-const domainName = process.env.CURRENT_API_ADRESS;
-const senderEmail = process.env.SENDER_EMAIL;
-const senderEmailPassword = process.env.SENDER_EMAIL_PASSWORD;
+const domainName = process.env.CURRENT_API_ADRESS; // name of current domein
+const senderEmail = process.env.SENDER_EMAIL; // sender email adress, prefer outlook
+const senderEmailPassword = process.env.SENDER_EMAIL_PASSWORD; //sender email password
 
 const sendVerificationMail = (reciver, token) => {
 	const transporter = nodemailer.createTransport({
