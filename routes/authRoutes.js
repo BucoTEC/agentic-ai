@@ -17,7 +17,13 @@ const errorResponse = (req, res, next) => {
 	next();
 };
 
-router.get("/", body("email").notEmpty().isEmail(), errorResponse, singIn);
+router.get(
+	"/",
+	body("email").notEmpty().isEmail(),
+	body("password").notEmpty().isString(),
+	errorResponse,
+	singIn
+);
 router.get("/confirm/:token", confirmRegister);
 router.post("/", register);
 
