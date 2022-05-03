@@ -17,6 +17,14 @@ const errorResponse = (req, res, next) => {
 	next();
 };
 
+const noBody = (req, res, next) => {
+	if (req.body) {
+		throw new Error("Body must be empty");
+	}
+
+	next();
+};
+
 router.get(
 	"/",
 	body("email").notEmpty().isEmail(),
@@ -24,7 +32,7 @@ router.get(
 	errorResponse,
 	singIn
 );
-router.get("/confirm/:token", confirmRegister);
+router.get("/confirm/:token", noBody, confirmRegister);
 router.post("/", register);
 
 export default router;
