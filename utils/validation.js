@@ -1,4 +1,4 @@
-import ResError from "./ResError";
+import ResError from "./ResError.js";
 
 import { validationResult } from "express-validator";
 
