@@ -9,7 +9,7 @@ import {
 
 import { noBody, errorResponse } from "../utils/validation.js";
 
-import { body } from "express-validator";
+import { body, param } from "express-validator";
 
 router.get(
 	"/",
@@ -18,7 +18,7 @@ router.get(
 	errorResponse,
 	singIn
 );
-router.get("/confirm/:token", noBody, confirmRegister);
+router.get("/confirm/:token", param("token").exists(), noBody, confirmRegister);
 router.post("/", register);
 
 export default router;
