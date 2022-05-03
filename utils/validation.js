@@ -1,10 +1,14 @@
 import ResError from "./ResError.js";
 
-import { validationResult } from "express-validator";
+import { validationResult, matchedData } from "express-validator";
 
 export const errorResponse = (req, res, next) => {
 	const errors = validationResult(req);
-
+	const test = matchedData(req, {
+		locations: ["body"],
+		includeOptionals: true,
+	});
+	console.log(test);
 	if (!errors.isEmpty()) {
 		throw new ResError(400, errors.array());
 	}
@@ -17,4 +21,22 @@ export const noBody = (req, res, next) => {
 	}
 
 	next();
+};
+
+export const registerSchema = {
+	email: {
+		in: "body",
+		notEmpty: "true",
+		isEmail: "true",
+	},
+	password: {
+		in: "body",
+		notEmpty: "true",
+		isString: "true",
+	},
+	username: {
+		in: "body",
+		notEmpty: "true",
+		isString: "true",
+	},
 };

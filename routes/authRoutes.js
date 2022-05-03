@@ -7,9 +7,9 @@ import {
 	confirmRegister,
 } from "../controllers/authControllers.js";
 
-import { noBody, errorResponse } from "../utils/validation.js";
+import { noBody, errorResponse, registerSchema } from "../utils/validation.js";
 
-import { body, param } from "express-validator";
+import { body, param, checkSchema } from "express-validator";
 
 router.get(
 	"/",
@@ -20,13 +20,6 @@ router.get(
 );
 router.get("/confirm/:token", param("token").exists(), noBody, confirmRegister);
 
-router.post(
-	"/",
-	body("email").notEmpty().isEmail(),
-	body("password").notEmpty().isString(),
-	body("username").notEmpty().isString(),
-	errorResponse,
-	register
-);
+router.post("/", checkSchema(registerSchema), errorResponse, register);
 
 export default router;
