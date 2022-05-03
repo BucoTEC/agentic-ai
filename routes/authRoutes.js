@@ -7,17 +7,16 @@ import {
 	confirmRegister,
 } from "../controllers/authControllers.js";
 
-import { noBody, errorResponse, registerSchema } from "../utils/validation.js";
-
-import { body, param, checkSchema } from "express-validator";
-
-router.get(
-	"/",
-	body("email").notEmpty().isEmail(),
-	body("password").notEmpty().isString(),
+import {
+	noBody,
 	errorResponse,
-	singIn
-);
+	registerSchema,
+	joiTest,
+} from "../utils/validation.js";
+
+import { param, checkSchema } from "express-validator";
+
+router.get("/", joiTest, singIn);
 router.get("/confirm/:token", param("token").exists(), noBody, confirmRegister);
 
 router.post("/", checkSchema(registerSchema), errorResponse, register);

@@ -1,4 +1,5 @@
 import ResError from "./ResError.js";
+import Joi from "joi";
 
 import { validationResult, matchedData } from "express-validator";
 
@@ -39,4 +40,18 @@ export const registerSchema = {
 		notEmpty: "true",
 		isString: "true",
 	},
+};
+
+const joiLoginSchema = Joi.object({
+	email: Joi.string().email().required(),
+	password: Joi.string().required(),
+});
+export const joiTest = (req, res, next) => {
+	const { error } = joiLoginSchema.validate(req.body);
+	console.log(req.body);
+	if (error) {
+		res.json(error);
+	} else {
+		next();
+	}
 };
