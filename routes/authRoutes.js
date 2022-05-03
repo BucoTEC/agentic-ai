@@ -19,6 +19,14 @@ router.get(
 	singIn
 );
 router.get("/confirm/:token", param("token").exists(), noBody, confirmRegister);
-router.post("/", register);
+
+router.post(
+	"/",
+	body("email").notEmpty().isEmail(),
+	body("password").notEmpty().isString(),
+	body("username").notEmpty().isString(),
+	errorResponse,
+	register
+);
 
 export default router;
