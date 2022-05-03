@@ -1,29 +1,15 @@
 import express from "express";
 const router = express.Router();
+
 import {
 	singIn,
 	register,
 	confirmRegister,
 } from "../controllers/authControllers.js";
 
-import { body, validationResult } from "express-validator";
+import { noBody, errorResponse } from "../utils/validation.js";
 
-const errorResponse = (req, res, next) => {
-	const errors = validationResult(req);
-
-	if (!errors.isEmpty()) {
-		return res.status(400).json({ errors: errors.array() });
-	}
-	next();
-};
-
-const noBody = (req, res, next) => {
-	if (req.body) {
-		throw new Error("Body must be empty");
-	}
-
-	next();
-};
+import { body } from "express-validator";
 
 router.get(
 	"/",
