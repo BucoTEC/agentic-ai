@@ -13,7 +13,7 @@ export const errorResponse = (req, res, next) => {
 
 export const noBody = (req, res, next) => {
 	if (req.body) {
-		throw new Error("Body must be empty");
+		throw new ResError(400, "Body must be empty");
 	}
 
 	next();
