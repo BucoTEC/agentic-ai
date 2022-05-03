@@ -50,7 +50,8 @@ export const joiTest = (req, res, next) => {
 	const { error } = joiLoginSchema.validate(req.body);
 	console.log(req.body);
 	if (error) {
-		res.json(error);
+		const msg = error.details.map((el) => el.message).join(",");
+		throw new ResError(400, msg);
 	} else {
 		next();
 	}
