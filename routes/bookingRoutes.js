@@ -9,7 +9,11 @@ import {
 	deleteBooking,
 } from "../controllers/bookingControllers.js";
 
-import { noBody, validateAddBooking } from "../utils/validation.js";
+import {
+	noBody,
+	validateAddBooking,
+	validateUpdateBooking,
+} from "../utils/validation.js";
 
 router.get("/", noBody, allBokings);
 
@@ -17,8 +21,8 @@ router.get("/:id", noBody, oneBooking);
 
 router.post("/", validateAddBooking, addBooking);
 
-router.patch("/:id", updateBooking);
+router.patch("/:id", validateUpdateBooking, updateBooking);
 
-router.delete("/:id", deleteBooking);
+router.delete("/:id", noBody, deleteBooking);
 
 export default router;

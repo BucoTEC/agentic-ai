@@ -36,6 +36,15 @@ const joiAddBookingSchema = Joi.object({
 
 export const validateAddBooking = validationFunction(joiAddBookingSchema);
 
+// UPDATE BOOKING
+
+const joiUpdateBookingSchema = Joi.object({
+	day: Joi.string(),
+	time: Joi.string(),
+});
+
+export const validateUpdateBooking = validationFunction(joiUpdateBookingSchema);
+
 // HELPRE FUNCTION
 
 function validationFunction(schema) {
