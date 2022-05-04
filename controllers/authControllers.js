@@ -3,11 +3,11 @@ import jwt from "jsonwebtoken";
 import dotenv from "dotenv";
 import "express-async-errors";
 
-import User from "../models/user/userModel.js";
-import PendingUser from "../models/user/pendingUserModel.js";
+import User from "#root/models/user/userModel.js";
+import PendingUser from "#root/models/user/pendingUserModel.js";
 
-import sendVerificationMail from "../utils/sendVerificationMail.js";
-import ResError from "../utils/ResError.js";
+import sendVerificationMail from "#root/utils/sendVerificationMail.js";
+import ResError from "#root/utils/ResError.js";
 
 dotenv.config();
 

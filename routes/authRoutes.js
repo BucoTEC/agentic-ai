@@ -5,13 +5,13 @@ import {
 	singIn,
 	register,
 	confirmRegister,
-} from "../controllers/authControllers.js";
+} from "#root/controllers/authControllers.js";
 
 import {
 	noBody,
 	validateSignIn,
 	validateRegister,
-} from "../utils/validation.js";
+} from "#root/utils/validation.js";
 
 router.get("/", validateSignIn, singIn);
 

@@ -5,7 +5,7 @@ import {
 	getSingleUser,
 	deleteUser,
 	updateUser,
-} from "../controllers/userControllers.js";
+} from "#root/controllers/userControllers.js";
 
 router.get("/", getAllUsers);
 
