@@ -16,15 +16,7 @@ const joiLoginSchema = Joi.object({
 	password: Joi.string().required(),
 });
 
-export const validateSignIn = (req, res, next) => {
-	const { error } = joiLoginSchema.validate(req.body);
-	if (error) {
-		const msg = error.details.map((el) => el.message).join(",");
-		throw new ResError(400, msg);
-	} else {
-		next();
-	}
-};
+export const validateSignIn = validationFunction(joiLoginSchema);
 
 // REGISTER
 const joiRegisterSchema = Joi.object({
@@ -33,15 +25,9 @@ const joiRegisterSchema = Joi.object({
 	username: Joi.string().required(),
 });
 
-export const validateRegister = (req, res, next) => {
-	const { error } = joiRegisterSchema.validate(req.body);
-	if (error) {
-		const msg = error.details.map((el) => el.message).join(",");
-		throw new ResError(400, msg);
-	} else {
-		next();
-	}
-};
+export const validateRegister = validationFunction(joiRegisterSchema);
+
+// ADD BOOKING
 
 const joiAddBookingSchema = Joi.object({
 	day: Joi.string().required(),
@@ -49,6 +35,8 @@ const joiAddBookingSchema = Joi.object({
 });
 
 export const validateAddBooking = validationFunction(joiAddBookingSchema);
+
+// HELPRE FUNCTION
 
 function validationFunction(schema) {
 	return (req, res, next) => {

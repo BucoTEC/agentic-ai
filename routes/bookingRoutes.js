@@ -20,4 +20,5 @@ router.post("/", validateAddBooking, addBooking);
 router.patch("/:id", updateBooking);
 
 router.delete("/:id", deleteBooking);
+
 export default router;
