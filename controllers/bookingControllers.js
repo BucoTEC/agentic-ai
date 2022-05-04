@@ -24,10 +24,13 @@ export const allBokings = async (req, res) => {
 export const oneBooking = async (req, res) => {
 	const { userId, isAdmin } = req.userData;
 	const { id } = req.params;
+
 	const booking = await Booking.findById(id);
+
 	if (!booking) {
 		throw new ResError(404, `Not found booking with id: ${id}`);
 	}
+
 	if (userId == booking.user || isAdmin) {
 		return res
 			.status(200)
@@ -37,12 +40,13 @@ export const oneBooking = async (req, res) => {
 	throw new ResError(403, "You are not authorized to view this booking");
 };
 
+// TODO find user and check if he has two more bookings on the same day
+
 export const addBooking = async (req, res) => {
 	const { userId } = req.userData;
 	const { day, time } = req.body;
-	const currentUser = await User.findById(userId);
 
-	//find user and check if he has two more bookings on the same day
+	const currentUser = await User.findById(userId);
 
 	const newBooking = new Booking({ user: userId, day, time });
 	currentUser.bookings.push(newBooking);

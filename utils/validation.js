@@ -42,3 +42,22 @@ export const validateRegister = (req, res, next) => {
 		next();
 	}
 };
+
+const joiAddBookingSchema = Joi.object({
+	day: Joi.string().required(),
+	time: Joi.string().required(),
+});
+
+export const validateAddBooking = validationFunction(joiAddBookingSchema);
+
+function validationFunction(schema) {
+	return (req, res, next) => {
+		const { error } = schema.validate(req.body);
+		if (error) {
+			const msg = error.details.map((el) => el.message).join(",");
+			throw new ResError(400, msg);
+		} else {
+			next();
+		}
+	};
+}
