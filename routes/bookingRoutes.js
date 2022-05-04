@@ -9,7 +9,9 @@ import {
 	deleteBooking,
 } from "../controllers/bookingControllers.js";
 
-router.get("/", allBokings);
+import { noBody } from "../utils/validation.js";
+
+router.get("/", noBody, allBokings);
 
 router.get("/:id", oneBooking);
 
