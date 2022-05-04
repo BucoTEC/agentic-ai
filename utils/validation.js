@@ -9,6 +9,8 @@ export const noBody = (req, res, next) => {
 	next();
 };
 
+//LOGIN
+
 const joiLoginSchema = Joi.object({
 	email: Joi.string().email().required(),
 	password: Joi.string().required(),
@@ -16,7 +18,23 @@ const joiLoginSchema = Joi.object({
 
 export const validateSignIn = (req, res, next) => {
 	const { error } = joiLoginSchema.validate(req.body);
-	console.log(req.body);
+	if (error) {
+		const msg = error.details.map((el) => el.message).join(",");
+		throw new ResError(400, msg);
+	} else {
+		next();
+	}
+};
+
+// REGISTER
+const joiRegisterSchema = Joi.object({
+	email: Joi.string().email().required(),
+	password: Joi.string().required(),
+	username: Joi.string().required(),
+});
+
+export const validateRegister = (req, res, next) => {
+	const { error } = joiRegisterSchema.validate(req.body);
 	if (error) {
 		const msg = error.details.map((el) => el.message).join(",");
 		throw new ResError(400, msg);
