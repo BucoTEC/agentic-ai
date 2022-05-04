@@ -7,6 +7,7 @@ import User from "../models/user/userModel.js";
 import PendingUser from "../models/user/pendingUserModel.js";
 
 import sendVerificationMail from "../utils/sendVerificationMail.js";
+import ResError from "../utils/ResError.js";
 
 dotenv.config();
 
@@ -77,6 +78,8 @@ export const register = async (req, res, next) => {
 
 export const confirmRegister = async (req, res) => {
 	const { token } = req.params;
+
+	!token && new ResError(400, "missing token");
 	const { userId } = jwt.verify(token, tokenSecret);
 
 	const existingPendingUser = await PendingUser.findById(userId);
