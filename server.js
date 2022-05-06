@@ -1,6 +1,8 @@
 import express from "express";
 import dotenv from "dotenv";
 import cors from "cors";
+import swaggerUi from "swagger-ui-express";
+import { readFileSync } from "fs";
 
 import auth from "./routes/authRoutes.js";
 import users from "./routes/userRoutes.js";
@@ -13,11 +15,15 @@ import connectToDatabase from "./db/connectToDatabase.js";
 import errorHandler from "./utils/error-handler.js";
 import ResError from "./utils/ResError.js";
 
+const swaggerDocs = JSON.parse(readFileSync("./swagger.json"));
+
 //config
 dotenv.config();
 const app = express();
 app.use(express.json());
 app.use(cors());
+
+app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocs));
 
 //landing
 app.get("/", (req, res) => {
