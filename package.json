@@ -22,7 +22,8 @@
 		"joi": "^17.6.0",
 		"jsonwebtoken": "^8.5.1",
 		"mongoose": "^6.1.10",
-		"nodemailer": "^6.7.3"
+		"nodemailer": "^6.7.3",
+		"swagger-ui-express": "^4.3.0"
 	},
 	"devDependencies": {
 		"@types/module-alias": "^2.0.1",
