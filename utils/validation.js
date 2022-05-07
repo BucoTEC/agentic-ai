@@ -43,21 +43,23 @@ const joiUpdateBookingSchema = Joi.object({
 	time: Joi.string(),
 });
 
+const joiUpdateBookingSchemaAdmin = Joi.object({
+	day: Joi.string(),
+	time: Joi.string(),
+	status: Joi.string(),
+	comment: Joi.string(),
+});
+
 export const validateUpdateBooking = validationFunction(joiUpdateBookingSchema);
 
-// HELPRE FUNCTION
+export const validateUpdateBoookingAdmin = adminValidationFunction(
+	joiUpdateBookingSchemaAdmin
+);
 
-function validationFunction(schema, adminSchema) {
+// HELPRE FUNCTION
+function adminValidationFunction(schema) {
 	return (req, res, next) => {
 		if (req.userData.isAdmin) {
-			const { error } = adminSchema.validate(req.body);
-			if (error) {
-				const msg = error.details.map((el) => el.message).join(",");
-				throw new ResError(400, msg);
-			} else {
-				next();
-			}
-		} else {
 			const { error } = schema.validate(req.body);
 			if (error) {
 				const msg = error.details.map((el) => el.message).join(",");
@@ -65,6 +67,20 @@ function validationFunction(schema, adminSchema) {
 			} else {
 				next();
 			}
+		} else {
+			next();
+		}
+	};
+}
+
+function validationFunction(schema) {
+	return (req, res, next) => {
+		const { error } = schema.validate(req.body);
+		if (error) {
+			const msg = error.details.map((el) => el.message).join(",");
+			throw new ResError(400, msg);
+		} else {
+			next();
 		}
 	};
 }

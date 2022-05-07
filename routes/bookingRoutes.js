@@ -13,6 +13,7 @@ import {
 	noBody,
 	validateAddBooking,
 	validateUpdateBooking,
+	validateUpdateBoookingAdmin,
 } from "#root/utils/validation.js";
 
 router.get("/", noBody, allBokings);
@@ -21,7 +22,12 @@ router.get("/:id", noBody, oneBooking);
 
 router.post("/", validateAddBooking, addBooking);
 
-router.patch("/:id", validateUpdateBooking, updateBooking);
+router.patch(
+	"/:id",
+	validateUpdateBoookingAdmin,
+	validateUpdateBooking,
+	updateBooking
+);
 
 router.delete("/:id", noBody, deleteBooking);
 
