@@ -56,16 +56,15 @@ export const updateUser = async (req, res) => {
 			req.body.password = await bcrypt.hash(req.body.password, 12);
 		}
 
+		if (req.body.email) {
+			req.body.emailConfirmed = false;
+		}
+
 		const updatedUser = await User.findByIdAndUpdate(
 			id,
 			{ ...req.body },
 			{ new: true }
 		);
-
-		if (req.body.email) {
-			console.log("body has email");
-			console.log(updatedUser);
-		}
 
 		return res.status(201).json({
 			message: "User updated successfully",
