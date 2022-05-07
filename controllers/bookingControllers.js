@@ -5,7 +5,6 @@ import User from "#root/models/user/userModel.js";
 
 import ResError from "#root/utils/ResError.js";
 
-// TODO add data validation on incoming req with body, express validator
 // TODO add date picker limitation depending on curretn time and date
 
 export const allBokings = async (req, res) => {

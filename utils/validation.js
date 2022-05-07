@@ -27,6 +27,16 @@ const joiRegisterSchema = Joi.object({
 
 export const validateRegister = validationFunction(joiRegisterSchema);
 
+// UPDATE USER
+
+const joiUpdateUserSchema = Joi.object({
+	email: Joi.string().email(),
+	password: Joi.string(),
+	username: Joi.string(),
+});
+
+export const validateUpdateUser = validationFunction(joiUpdateUserSchema);
+
 // ADD BOOKING
 
 const joiAddBookingSchema = Joi.object({

@@ -7,13 +7,13 @@ import {
 	updateUser,
 } from "#root/controllers/userControllers.js";
 
-import { noBody } from "#root/utils/validation.js";
+import { noBody, validateUpdateUser } from "#root/utils/validation.js";
 
 router.get("/", noBody, getAllUsers);
 
 router.get("/:id", noBody, getSingleUser);
 
-router.patch("/:id", updateUser);
+router.patch("/:id", validateUpdateUser, updateUser);
 
 router.delete("/:id", noBody, deleteUser);
 
