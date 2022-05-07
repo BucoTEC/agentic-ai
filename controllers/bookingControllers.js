@@ -1,9 +1,9 @@
 import "express-async-errors";
 
-import Booking from "#root/models/booking/bookingModel.js";
-import User from "#root/models/user/userModel.js";
+import Booking from "../models/booking/bookingModel.js";
+import User from "../models/user/userModel.js";
 
-import ResError from "#root/utils/ResError.js";
+import ResError from "../utils/ResError.js";
 
 // TODO add date picker limitation depending on curretn time and date
 

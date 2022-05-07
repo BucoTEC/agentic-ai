@@ -7,13 +7,13 @@ import {
 	addBooking,
 	updateBooking,
 	deleteBooking,
-} from "#root/controllers/bookingControllers.js";
+} from "../controllers/bookingControllers.js";
 
 import {
 	noBody,
 	validateAddBooking,
 	validateUpdateBooking,
-} from "#root/utils/validation.js";
+} from "../utils/validation.js";
 
 router.get("/", noBody, allBokings);
 

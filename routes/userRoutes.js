@@ -5,9 +5,9 @@ import {
 	getSingleUser,
 	deleteUser,
 	updateUser,
-} from "#root/controllers/userControllers.js";
+} from "../controllers/userControllers.js";
 
-import { noBody, validateUpdateUser } from "#root/utils/validation.js";
+import { noBody, validateUpdateUser } from "../utils/validation.js";
 
 router.get("/", noBody, getAllUsers);
 

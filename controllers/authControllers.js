@@ -3,11 +3,11 @@ import jwt from "jsonwebtoken";
 import dotenv from "dotenv";
 import "express-async-errors";
 
-import User from "#root/models/user/userModel.js";
-import PendingUser from "#root/models/user/pendingUserModel.js";
+import User from "../models/user/userModel.js";
+import PendingUser from "../models/user/pendingUserModel.js";
 
-import sendVerificationMail from "#root/utils/sendVerificationMail.js";
-import ResError from "#root/utils/ResError.js";
+import sendVerificationMail from "../utils/sendVerificationMail.js";
+import ResError from "../utils/ResError.js";
 
 dotenv.config();
 
@@ -42,7 +42,7 @@ export const singIn = async (req, res) => {
 	});
 };
 
-export const register = async (req, res, next) => {
+export const register = async (req, res) => {
 	const { username, email, password } = req.body;
 	const existingUser = await User.findOne({ email });
 	if (existingUser) {
@@ -65,7 +65,6 @@ export const register = async (req, res, next) => {
 		{ expiresIn: "10m" }
 	);
 
-	!token && next();
 	res.json({
 		message: "panding user created",
 		data: {
@@ -82,22 +81,51 @@ export const confirmRegister = async (req, res) => {
 	!token && new ResError(400, "missing token");
 	const { userId } = jwt.verify(token, tokenSecret);
 
-	const existingPendingUser = await PendingUser.findById(userId);
-	if (!existingPendingUser) {
-		throw new Error("Pending user or link timed out");
-	}
+	try {
+		await User.findByIdandUpdate(userId, {
+			emailVerified: true,
+		});
 
-	const newUser = new User({
-		username: existingPendingUser.username,
-		email: existingPendingUser.email,
-		password: existingPendingUser.password,
-	});
-	await newUser.save();
-	await existingPendingUser.remove();
-	res.json({
-		message: "user creation confirmed",
-		data: {
-			userId: newUser._id,
-		},
-	});
+		return res.status(200).json("Successfuly confirmed email");
+	} catch {
+		const existingPendingUser = await PendingUser.findById(userId);
+		if (!existingPendingUser) {
+			throw new Error("Pending user or link timed out");
+		}
+
+		const newUser = new User({
+			username: existingPendingUser.username,
+			email: existingPendingUser.email,
+			password: existingPendingUser.password,
+		});
+		await newUser.save();
+		await existingPendingUser.remove();
+		res.json({
+			message: "user creation confirmed",
+			data: {
+				userId: newUser._id,
+			},
+		});
+	}
 };
+
+export const emailConfirmationSender = async (req, res) => {
+	const { id } = req.params;
+
+	const currentUser = await User.findById(id);
+
+	const token = jwt.sign(
+		{
+			userId: currentUser._id,
+		},
+		tokenSecret,
+		{ expiresIn: "10m" }
+	);
+
+	token && sendVerificationMail(currentUser.email, token);
+	res.json("emeil verification sent");
+};
+
+// export const emailConfirmationReciver = (req, res) => {
+// 	res.json("emial verification reciver");
+// };

@@ -5,17 +5,20 @@ import {
 	singIn,
 	register,
 	confirmRegister,
-} from "#root/controllers/authControllers.js";
+	emailConfirmationSender,
+} from "../controllers/authControllers.js";
 
 import {
 	noBody,
 	validateSignIn,
 	validateRegister,
-} from "#root/utils/validation.js";
+} from "../utils/validation.js";
 
 router.get("/", validateSignIn, singIn);
 
 router.get("/confirm/:token", noBody, confirmRegister);
+
+router.get("/send-confirm/:id", noBody, emailConfirmationSender);
 
 router.post("/", validateRegister, register);
 
