@@ -72,6 +72,10 @@ export const updateBooking = async (req, res) => {
 	}
 
 	if (!isAdmin) {
+		if (req.body.status || req.body.message) {
+			throw new ResError(500, "You are not authorized to do that");
+		}
+
 		req.body.status = "pending";
 	}
 

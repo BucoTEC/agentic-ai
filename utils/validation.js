@@ -41,6 +41,8 @@ export const validateAddBooking = validationFunction(joiAddBookingSchema);
 const joiUpdateBookingSchema = Joi.object({
 	day: Joi.string(),
 	time: Joi.string(),
+	status: Joi.string(),
+	comment: Joi.string(),
 });
 
 const joiUpdateBookingSchemaAdmin = Joi.object({
@@ -59,6 +61,7 @@ export const validateUpdateBoookingAdmin = adminValidationFunction(
 // HELPRE FUNCTION
 function adminValidationFunction(schema) {
 	return (req, res, next) => {
+		console.log(req.userData.isAdmin);
 		if (req.userData.isAdmin) {
 			const { error } = schema.validate(req.body);
 			if (error) {
