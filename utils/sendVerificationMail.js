@@ -9,7 +9,7 @@ const senderEmailPassword = process.env.SENDER_EMAIL_PASSWORD; //sender email pa
 
 const sendVerificationMail = (reciver, token) => {
 	const transporter = nodemailer.createTransport({
-		service: "hotmail",
+		service: "gmail",
 		auth: {
 			user: senderEmail,
 			pass: senderEmailPassword,

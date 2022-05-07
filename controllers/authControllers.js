@@ -82,8 +82,8 @@ export const confirmRegister = async (req, res) => {
 	const { userId } = jwt.verify(token, tokenSecret);
 
 	try {
-		await User.findByIdandUpdate(userId, {
-			emailVerified: true,
+		await User.findByIdAndUpdate(userId, {
+			emailConfirmed: true,
 		});
 
 		return res.status(200).json("Successfuly confirmed email");
