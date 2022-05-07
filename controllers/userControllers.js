@@ -46,7 +46,7 @@ export const deleteUser = async (req, res) => {
 	throw ResError(403, "You are not authorized do to that");
 };
 
-// TODO GENERATE UPDATED TOKEN
+// ? DO I NEED A NEW TOKEN
 export const updateUser = async (req, res) => {
 	const { id } = req.params;
 	const { userId, isAdmin } = req.userData;
