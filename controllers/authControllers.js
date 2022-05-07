@@ -125,7 +125,3 @@ export const emailConfirmationSender = async (req, res) => {
 	token && sendVerificationMail(currentUser.email, token);
 	res.json("emeil verification sent");
 };
-
-// export const emailConfirmationReciver = (req, res) => {
-// 	res.json("emial verification reciver");
-// };
