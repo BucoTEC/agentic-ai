@@ -2,7 +2,7 @@ import ResError from "./ResError.js";
 import Joi from "joi";
 
 export const noBody = (req, res, next) => {
-	if (req.body) {
+	if (req.body.length > 1) {
 		throw new ResError(400, "Body must be empty");
 	}
 
@@ -47,14 +47,24 @@ export const validateUpdateBooking = validationFunction(joiUpdateBookingSchema);
 
 // HELPRE FUNCTION
 
-function validationFunction(schema) {
+function validationFunction(schema, adminSchema) {
 	return (req, res, next) => {
-		const { error } = schema.validate(req.body);
-		if (error) {
-			const msg = error.details.map((el) => el.message).join(",");
-			throw new ResError(400, msg);
+		if (req.userData.isAdmin) {
+			const { error } = adminSchema.validate(req.body);
+			if (error) {
+				const msg = error.details.map((el) => el.message).join(",");
+				throw new ResError(400, msg);
+			} else {
+				next();
+			}
 		} else {
-			next();
+			const { error } = schema.validate(req.body);
+			if (error) {
+				const msg = error.details.map((el) => el.message).join(",");
+				throw new ResError(400, msg);
+			} else {
+				next();
+			}
 		}
 	};
 }
