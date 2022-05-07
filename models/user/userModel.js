@@ -36,6 +36,10 @@ const userSchema = new mongoose.Schema({
 		type: Boolean,
 		default: false,
 	},
+	emailConfirmed: {
+		type: Boolean,
+		default: true,
+	},
 });
 
 export default new mongoose.model("User", userSchema);
