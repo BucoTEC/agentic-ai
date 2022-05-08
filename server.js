@@ -13,8 +13,6 @@ import connectToDatabase from "./db/connectToDatabase.js";
 import errorHandler from "./utils/error-handler.js";
 import ResError from "./utils/ResError.js";
 
-const swaggerDocs = JSON.parse(readFileSync("./swagger.json"));
-
 //config
 dotenv.config();
 const app = express();
