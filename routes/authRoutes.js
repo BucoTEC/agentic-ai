@@ -14,12 +14,12 @@ import {
 	validateRegister,
 } from "../utils/validation.js";
 
-router.get("/", validateSignIn, singIn);
+router.post("/login", validateSignIn, singIn);
 
 router.get("/confirm/:token", noBody, confirmRegister);
 
 router.get("/send-confirm/:id", noBody, emailConfirmationSender);
 
-router.post("/", validateRegister, register);
+router.post("/register", validateRegister, register);
 
 export default router;
