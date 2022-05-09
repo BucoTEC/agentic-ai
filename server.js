@@ -20,7 +20,7 @@ app.use(express.json());
 app.use(cors());
 
 //landing
-app.get("api/", (req, res) => {
+app.get("/api/", (req, res) => {
 	res.status(200).json("Wellcome to the bookign API");
 });
 
