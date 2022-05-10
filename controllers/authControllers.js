@@ -38,7 +38,7 @@ export const singIn = async (req, res) => {
 	res.json({
 		token,
 		userId: existingUser._id,
-		username: existingUser.username,
+		isAdmin: existingUser.isAdmin,
 	});
 };
 
