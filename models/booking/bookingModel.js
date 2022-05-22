@@ -1,7 +1,5 @@
 import mongoose from "mongoose";
 
-import { bookingTime, bookingDay } from "./bookingTimeConstants.js";
-
 const bookingSchema = new mongoose.Schema({
 	user: {
 		type: mongoose.Types.ObjectId,
@@ -13,16 +11,11 @@ const bookingSchema = new mongoose.Schema({
 		enum: ["pending", "confirmed", "declined"],
 		required: true,
 	},
-	time: {
-		type: String,
-		enum: bookingTime,
+	date: {
+		type: Date,
 		required: true,
 	},
-	day: {
-		type: String,
-		enum: bookingDay,
-		required: true,
-	},
+
 	comment: {
 		type: String,
 		min: 5,
