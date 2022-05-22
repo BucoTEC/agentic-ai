@@ -20,6 +20,10 @@ const bookingSchema = new mongoose.Schema({
 		type: String,
 		min: 5,
 	},
+	amount: {
+		type: Number,
+		min: 1,
+	},
 });
 
 export default new mongoose.model("Booking", bookingSchema);

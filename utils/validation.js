@@ -42,6 +42,7 @@ export const validateUpdateUser = validationFunction(joiUpdateUserSchema);
 const joiAddBookingSchema = Joi.object({
 	date: Joi.date().required(),
 	comment: Joi.string().required(),
+	amount: Joi.number().required(),
 });
 
 export const validateAddBooking = validationFunction(joiAddBookingSchema);
@@ -52,6 +53,7 @@ const joiUpdateBookingSchema = Joi.object({
 	date: Joi.date(),
 	status: Joi.string(),
 	comment: Joi.string(),
+	amount: Joi.number(),
 });
 
 export const validateUpdateBooking = validationFunction(joiUpdateBookingSchema);
