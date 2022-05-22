@@ -43,11 +43,10 @@ export const oneBooking = async (req, res) => {
 
 export const addBooking = async (req, res) => {
 	const { userId } = req.userData;
-	const { day, time } = req.body;
 
 	const currentUser = await User.findById(userId);
 
-	const newBooking = new Booking({ user: userId, day, time });
+	const newBooking = new Booking({ user: userId, ...req.body });
 	currentUser.bookings.push(newBooking);
 
 	await currentUser.save();
