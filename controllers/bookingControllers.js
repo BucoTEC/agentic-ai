@@ -87,21 +87,26 @@ export const updateBooking = async (req, res) => {
 	throw new ResError(403, "You are not authorized to view this booking");
 };
 
+// TODO fix ownership of booking
+
 export const deleteBooking = async (req, res) => {
 	const { userId, isAdmin } = req.userData;
+	console.log(userId);
+	console.log(isAdmin);
 	const { id } = req.params;
 
 	const booking = await Booking.findById(id);
 	if (!booking) {
 		return res.json(`No booking found with id: ${id}`);
 	}
-	if (booking.user != userId || !isAdmin) {
+	console.log(booking.user);
+	if (!isAdmin || booking.user != userId) {
 		throw new ResError(403, "You are not the owner of this booking");
 	}
 
 	await booking.remove();
 
-	const user = await User.findById(userId);
+	const user = await User.findById(booking.user);
 
 	const newBookings = user.bookings.filter((item) => item != id);
 
