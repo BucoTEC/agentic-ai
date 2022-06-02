@@ -1,8 +1,0 @@
-{
-	"swagger": "2.0",
-	"info": {
-		"description": "Booking API for maneging apointments",
-		"version": "1.0.0",
-		"title": "Booking API"
-	}
-}
