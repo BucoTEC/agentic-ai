@@ -20,7 +20,12 @@ npm start
 
 
 Models
-
+https://github.com/BucoTEC/bookingAPI/tree/main/models
 
 Routes
+https://github.com/BucoTEC/bookingAPI/tree/main/routes
+
+
+LIVE EXAMPLE
+https://btech-solutions-booking-api.herokuapp.com/api
 
