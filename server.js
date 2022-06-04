@@ -22,7 +22,7 @@ app.use(cors());
 //landing
 app.get("/api/", (req, res) => {
 	res.status(200).json({
-		message: "Wellcome to the bookign API update",
+		message: "Wellcome to the bookign API",
 		repo: "https://github.com/BucoTEC/bookingAPI",
 	});
 });
